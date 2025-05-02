@@ -6,7 +6,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    // await signInWithPopup(auth, provider);
+    await signInWithPopup(auth, provider);
     navigate("/calendar");
   };
 
