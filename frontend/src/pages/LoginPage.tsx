@@ -1,19 +1,27 @@
-import { auth, provider, signInWithPopup } from "../firebase";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { useAuth } from "../GoogleAuthProvider";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+  const { login, user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    await signInWithPopup(auth, provider);
-    navigate("/calendar");
-  };
+  useEffect(() => {
+    if (user) {
+      navigate("/calendar");
+    }
+  }, [user, navigate]);
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h2>Login with Google</h2>
-      <button onClick={handleLogin}>Sign in with Google</button>
+    <div>
+      {user ? (
+        <>
+          <h2>Welcome, {user.name}</h2>
+          <button onClick={logout}>Logout</button>
+        </>
+      ) : (
+        <button onClick={login}>Login with Google</button>
+      )}
     </div>
   );
 }
