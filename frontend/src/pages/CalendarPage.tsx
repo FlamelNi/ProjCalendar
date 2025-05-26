@@ -65,6 +65,7 @@ export default function CalendarPage() {
         titleAccessor="title"
         selectable
         defaultView="week"
+        scrollToTime={new Date()} // ✅ scrolls to current time
         style={{ height: 600, marginTop: 20 }}
       />
     </div>
