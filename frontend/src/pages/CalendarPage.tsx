@@ -7,6 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { GoogleEvent } from "../types/GoogleEvent";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import "./CalendarPage.css";
 
 const localizer = momentLocalizer(moment);
 interface CalendarEvent {
@@ -14,6 +15,19 @@ interface CalendarEvent {
   title: string;
   start: Date;
   end: Date;
+}
+
+// Fix the rbc-time-header margin issue function (shared)
+function fixHeaderMargin() {
+  const header = document.querySelector(".rbc-time-header");
+  if (header) {
+    if (window.innerWidth <= 600) {
+      (header as HTMLElement).style.marginRight = "0px";
+    } else {
+      // Optionally reset it if you want to keep default on desktop
+      // (header as HTMLElement).style.marginRight = '';
+    }
+  }
 }
 
 export default function CalendarPage() {
@@ -51,8 +65,20 @@ export default function CalendarPage() {
     fetchEvents();
   }, [user]);
 
+  // Fix header margin on load and resize
+  useEffect(() => {
+    fixHeaderMargin();
+    window.addEventListener("resize", fixHeaderMargin);
+    return () => window.removeEventListener("resize", fixHeaderMargin);
+  }, []);
+
+  // Fix header margin also on calendar view change
+  const handleCalendarView = () => {
+    fixHeaderMargin();
+  };
+
   return (
-    <div style={{ padding: "1rem" }}>
+    <div className="calendar-page-container">
       <Button variant="danger" onClick={logout}>
         <i className="bi bi-box-arrow-right"></i> Logout
       </Button>
@@ -67,6 +93,7 @@ export default function CalendarPage() {
         defaultView="week"
         scrollToTime={new Date()} // ✅ scrolls to current time
         style={{ height: 600, marginTop: 20 }}
+        onView={handleCalendarView}
       />
     </div>
   );
