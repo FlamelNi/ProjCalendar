@@ -7,7 +7,6 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { GoogleEvent } from "../types/GoogleEvent";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import "./CalendarPage.css";
 
 const localizer = momentLocalizer(moment);
 interface CalendarEvent {
@@ -91,7 +90,7 @@ export default function CalendarPage() {
         titleAccessor="title"
         selectable
         defaultView="week"
-        scrollToTime={new Date()} // ✅ scrolls to current time
+        scrollToTime={new Date()}
         style={{ height: 600, marginTop: 20 }}
         onView={handleCalendarView}
       />
