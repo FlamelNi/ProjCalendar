@@ -82,18 +82,20 @@ export default function CalendarPage() {
         <i className="bi bi-box-arrow-right"></i> Logout
       </Button>
       <h2>Welcome, {user?.name}</h2>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        titleAccessor="title"
-        selectable
-        defaultView="week"
-        scrollToTime={new Date()}
-        style={{ height: 600, marginTop: 20 }}
-        onView={handleCalendarView}
-      />
+      <div style={{ height: "80vh" }}>
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          titleAccessor="title"
+          selectable
+          defaultView="week"
+          scrollToTime={new Date()}
+          style={{ height: "100%" }}
+          onView={handleCalendarView}
+        />
+      </div>
     </div>
   );
 }
