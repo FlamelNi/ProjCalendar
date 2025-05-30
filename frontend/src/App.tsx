@@ -5,7 +5,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import Axios from "axios";
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import CalendarPage from "./pages/CalendarPage";
 import LoginPage from "./pages/LoginPage";
 
@@ -17,7 +17,6 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<LoginPage />} />
       <Route path="/calendar" element={<CalendarPage />} />
     </Routes>
   );

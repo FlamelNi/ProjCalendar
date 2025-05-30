@@ -36,7 +36,7 @@ export default function CalendarPage() {
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate("/");
     }
   }, [user, navigate]);
 
