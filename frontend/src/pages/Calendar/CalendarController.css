@@ -4,3 +4,19 @@
   gap: 1rem;
   padding: 0 1rem 1rem;
 }
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-btn img {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
