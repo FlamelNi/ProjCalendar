@@ -18,7 +18,11 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  // Initialization from localStorage for persistent login
+  const [user, setUser] = useState<User | null>(() => {
+    const storedUser = localStorage.getItem("authUser");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -28,12 +32,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         headers: { Authorization: `Bearer ${access_token}` },
       });
 
-      setUser({
+      const loggedInUser = {
         id: userInfo.data.sub,
         name: userInfo.data.name,
         email: userInfo.data.email,
         accessToken: access_token,
-      });
+      };
+      setUser(loggedInUser);
+      localStorage.setItem("authUser", JSON.stringify(loggedInUser));
 
       console.log("Logged in as:", userInfo.data);
     },
@@ -46,6 +52,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     googleLogout();
     setUser(null);
+    localStorage.removeItem("authUser");
   };
 
   return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
