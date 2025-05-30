@@ -8,6 +8,7 @@ import Axios from "axios";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import CalendarPage from "./pages/CalendarPage";
 import LoginPage from "./pages/LoginPage";
+import UserCalendarPage from "./pages/UserCalendarPage";
 
 function App() {
   // const [cookies, setCookies] = useCookies(["temp_key", "site_id"]);
@@ -18,6 +19,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/calendar" element={<CalendarPage />} />
+      <Route path="/test" element={<UserCalendarPage />} />
     </Routes>
   );
 }
