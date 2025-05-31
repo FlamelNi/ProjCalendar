@@ -13,7 +13,7 @@ const UserCalendarPage = () => {
       <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
         <TopBar />
         <UserSummary />
-        <CalendarComp navbarHeight={NAVBAR_HEIGHT} />
+        <CalendarComp />
       </div>
       <div style={{ height: NAVBAR_HEIGHT }}>
         <NavBar />
