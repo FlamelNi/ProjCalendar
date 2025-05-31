@@ -4,13 +4,20 @@ import UserSummary from "./UserSummary/UserSummary";
 import NavBar from "./NavBar/NavBar";
 import CalendarComp from "./Calendar/CalendarComp";
 
+const NAVBAR_HEIGHT = 56; // px, adjust according to your NavBar's real height!
+
 const UserCalendarPage = () => {
   return (
-    <div>
-      <TopBar />
-      <UserSummary />
-      <CalendarComp />
-      <NavBar />
+    <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+      {/* Content area */}
+      <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
+        <TopBar />
+        <UserSummary />
+        <CalendarComp navbarHeight={NAVBAR_HEIGHT} />
+      </div>
+      <div style={{ height: NAVBAR_HEIGHT }}>
+        <NavBar />
+      </div>
     </div>
   );
 };

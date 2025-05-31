@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useAuth } from "../../GoogleAuthProvider";
 import { listEvents } from "../../services/CalendarService";
 import { Calendar, momentLocalizer } from "react-big-calendar";
@@ -34,6 +34,7 @@ export default function CalendarComp() {
   const { user, logout } = useAuth();
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const navigate = useNavigate();
+  const calendarContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!user) {
@@ -77,15 +78,27 @@ export default function CalendarComp() {
     fixHeaderMargin();
   };
 
+  useEffect(() => {
+    // Scroll .rbc-time-content to the bottom when events load
+    if (calendarContainerRef.current) {
+      const container = calendarContainerRef.current.querySelector(".rbc-time-content");
+      if (container) {
+        (container as HTMLElement).scrollTop = (container as HTMLElement).scrollHeight;
+      }
+    }
+  }, [events]);
+
   return (
-    <div className="calendar-page-container">
-      {/* <Button variant="danger" onClick={logout}>
-        <i className="bi bi-box-arrow-right"></i> Logout
-      </Button> */}
-      {/* <h2>Welcome, {user?.name}</h2> */}
-      {/* <div> */}
-      <div style={{ height: "70vh" }}>
-        <CalendarController />
+    <div className="calendar-page-container" style={{ flexGrow: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      <CalendarController />
+      <div
+        ref={calendarContainerRef}
+        style={{
+          flexGrow: 1,
+          minHeight: 0,
+          height: "calc(100vh - 100px)", // Adjust 100px if you have a header, etc.
+        }}
+      >
         <Calendar
           localizer={localizer}
           events={events}
@@ -94,7 +107,6 @@ export default function CalendarComp() {
           titleAccessor="title"
           selectable
           defaultView="week"
-          scrollToTime={new Date()}
           style={{ height: "100%" }}
           onView={handleCalendarView}
           toolbar={false}
