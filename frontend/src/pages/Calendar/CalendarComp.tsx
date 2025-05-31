@@ -84,7 +84,7 @@ export default function CalendarComp() {
       </Button> */}
       {/* <h2>Welcome, {user?.name}</h2> */}
       {/* <div> */}
-      <div style={{ height: "50vh" }}>
+      <div style={{ height: "70vh" }}>
         <CalendarController />
         <Calendar
           localizer={localizer}
@@ -97,6 +97,7 @@ export default function CalendarComp() {
           scrollToTime={new Date()}
           style={{ height: "100%" }}
           onView={handleCalendarView}
+          toolbar={false}
         />
       </div>
     </div>
